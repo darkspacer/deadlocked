@@ -110,6 +110,8 @@
             pkgs.xorg.libXcursor
             pkgs.xorg.libXi
             pkgs.xorg.libXrandr
+            # xkbcommon-dl / x11-dl dlopen libxkbcommon(-x11) at runtime
+            pkgs.xorg.libxkbcommon.dev
             pkgs.wayland
             pkgs.libglvnd
             pkgs.vulkan-loader
@@ -140,6 +142,7 @@
               --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [
                 pkgs.alsa-lib
                 pkgs.xorg.libX11
+                pkgs.xorg.libxkbcommon
                 pkgs.wayland
                 pkgs.libglvnd
                 pkgs.vulkan-loader
@@ -174,6 +177,8 @@
             pkgs.xorg.libXcursor.dev
             pkgs.xorg.libXi.dev
             pkgs.xorg.libXrandr.dev
+            # winit dlopen()s libxkbcommon-x11.so at runtime via xkbcommon-dl
+            pkgs.xorg.libxkbcommon.dev
             pkgs.wayland.dev
             pkgs.libglvnd.dev
             pkgs.vulkan-headers
@@ -186,7 +191,9 @@
 
           shellHook = ''
             export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [
+              pkgs.alsa-lib
               pkgs.xorg.libX11
+              pkgs.xorg.libxkbcommon
               pkgs.wayland
               pkgs.libglvnd
               pkgs.vulkan-loader

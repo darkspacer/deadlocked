@@ -40,9 +40,12 @@ let
     # .dev pkg-config files `cargo build` dies in alsa-sys' build script
     alsa-lib.dev
     xorg.libX11.dev
-    xorg.libXcursor.dev
-    xorg.libXi.dev
-    xorg.libXrandr.dev
+    # winit/x11-dl dlopen() these at runtime — without them the binary
+    # panics on startup ("libxkbcommon-x11.so could not be loaded")
+    xorg.libxkbcommon.dev
+    xorg.libXext.dev
+    xorg.libXrender.dev
+    xorg.xorgproto
     wayland.dev
     libglvnd.dev
     vulkan-headers
@@ -55,6 +58,9 @@ let
     [
       alsa-lib
       xorg.libX11
+      xorg.libxkbcommon
+      xorg.libXext
+      xorg.libXrender
       wayland
       libglvnd
       vulkan-loader
