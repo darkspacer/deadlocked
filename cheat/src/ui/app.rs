@@ -344,6 +344,14 @@ impl App {
             return;
         }
 
+        // under hyprland, wayland itself gives no "always on top / click through"
+        // semantics, so push temporary layer rules through hyprctl first
+        if crate::os::hyprland::is_hyprland() {
+            if let Err(err) = crate::os::hyprland::apply_overlay_rules() {
+                utils::warn!("failed to apply hyprland overlay rules: {err}");
+            }
+        }
+
         let overlay = WindowContext::new(event_loop, true, self.state.config.accent_color);
 
         self.state.config.font.set(overlay.egui());
@@ -373,6 +381,11 @@ impl App {
 
         self.state.overlay_egui = None;
         self.overlay = None;
+
+        if crate::os::hyprland::is_hyprland() {
+            crate::os::hyprland::remove_overlay_rules();
+        }
+
         utils::info!("overlay window destroyed");
     }
 
