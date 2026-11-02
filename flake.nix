@@ -113,7 +113,7 @@
             # xkbcommon-dl / x11-dl dlopen libxkbcommon(-x11) at runtime
             pkgs.libxkbcommon.dev
             # winit dlopen()s libX11-xcb.so.1 via x11-dl at event-loop creation
-            pkgs.xorg.libX11_xcb.dev
+            pkgs.libX11_xcb.dev
             pkgs.libxext.dev
             pkgs.libxrender.dev
             pkgs.wayland
@@ -147,7 +147,7 @@
                 pkgs.alsa-lib
                 pkgs.libx11
                 pkgs.libxkbcommon
-                pkgs.xorg.libX11_xcb
+                pkgs.libX11_xcb
                 pkgs.libxext
                 pkgs.libxrender
                 pkgs.xinput
@@ -190,7 +190,7 @@
             pkgs.libxkbcommon.dev
             # ...and libX11-xcb.so.1 via x11-dl ("Failed to load one of xlib's
             # shared libraries" without it)
-            pkgs.xorg.libX11_xcb.dev
+            pkgs.libX11_xcb.dev
             pkgs.libxext.dev
             pkgs.libxrender.dev
             pkgs.wayland.dev
@@ -208,7 +208,7 @@
               pkgs.alsa-lib
               pkgs.libx11
               pkgs.libxkbcommon
-              pkgs.xorg.libX11_xcb
+              pkgs.libX11_xcb
               pkgs.libxext
               pkgs.libxrender
               pkgs.xinput

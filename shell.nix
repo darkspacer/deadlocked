@@ -45,9 +45,15 @@ let
     # winit/x11-dl dlopen() these at runtime — without them the binary
     # panics on startup ("libxkbcommon-x11.so could not be loaded")
     libxkbcommon.dev
-    # winit dlopen()s libX11-xcb.so.1 via x11-dl — missing => "Failed to load
-    # one of xlib's shared libraries" at event-loop creation
-    xorg.libX11_xcb.dev
+    # winit dlopen()s libX11-xcb.so.1 via x11-dl at event-loop creation —
+    # missing => "Failed to load one of xlib's shared libraries".
+    # x11-dl's build.rs resolves the pkg-config name `x11-xcb` and bakes its
+    # `libdir` into the binary as a dlopen() fallback path, while at runtime
+    # it tries plain soname lookups first. So we need BOTH the -dev package
+    # (for pkg-config at build time) and the runtime .so directory on
+    # LD_LIBRARY_PATH. In nixpkgs the actual libX11-xcb.so.1 lives in the
+    # top-level `libX11_xcb` output (`xorg.libX11_xcb` is deprecated).
+    libX11_xcb.dev
     libxext.dev
     libxrender.dev
     xinput.dev
@@ -66,7 +72,7 @@ let
       alsa-lib
       libx11
       libxkbcommon
-      xorg.libX11_xcb
+      libX11_xcb
       libxext
       libxrender
       xinput
