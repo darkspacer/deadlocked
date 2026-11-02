@@ -112,6 +112,10 @@
             pkgs.libxrandr
             # xkbcommon-dl / x11-dl dlopen libxkbcommon(-x11) at runtime
             pkgs.libxkbcommon.dev
+            # winit dlopen()s libX11-xcb.so.1 via x11-dl at event-loop creation
+            pkgs.xorg.libX11_xcb.dev
+            pkgs.libxext.dev
+            pkgs.libxrender.dev
             pkgs.wayland
             pkgs.libglvnd
             pkgs.vulkan-loader
@@ -143,6 +147,11 @@
                 pkgs.alsa-lib
                 pkgs.libx11
                 pkgs.libxkbcommon
+                pkgs.xorg.libX11_xcb
+                pkgs.libxext
+                pkgs.libxrender
+                pkgs.xinput
+                pkgs.libxcursor
                 pkgs.wayland
                 pkgs.libglvnd
                 pkgs.vulkan-loader
@@ -179,6 +188,11 @@
             pkgs.libxrandr.dev
             # winit dlopen()s libxkbcommon-x11.so at runtime via xkbcommon-dl
             pkgs.libxkbcommon.dev
+            # ...and libX11-xcb.so.1 via x11-dl ("Failed to load one of xlib's
+            # shared libraries" without it)
+            pkgs.xorg.libX11_xcb.dev
+            pkgs.libxext.dev
+            pkgs.libxrender.dev
             pkgs.wayland.dev
             pkgs.libglvnd.dev
             pkgs.vulkan-headers
@@ -194,6 +208,11 @@
               pkgs.alsa-lib
               pkgs.libx11
               pkgs.libxkbcommon
+              pkgs.xorg.libX11_xcb
+              pkgs.libxext
+              pkgs.libxrender
+              pkgs.xinput
+              pkgs.libxcursor
               pkgs.wayland
               pkgs.libglvnd
               pkgs.vulkan-loader

@@ -45,8 +45,13 @@ let
     # winit/x11-dl dlopen() these at runtime — without them the binary
     # panics on startup ("libxkbcommon-x11.so could not be loaded")
     libxkbcommon.dev
+    # winit dlopen()s libX11-xcb.so.1 via x11-dl — missing => "Failed to load
+    # one of xlib's shared libraries" at event-loop creation
+    xorg.libX11_xcb.dev
     libxext.dev
     libxrender.dev
+    xinput.dev
+    libxcursor.dev
     xorgproto
     wayland.dev
     libglvnd.dev
@@ -61,8 +66,11 @@ let
       alsa-lib
       libx11
       libxkbcommon
+      xorg.libX11_xcb
       libxext
       libxrender
+      xinput
+      libxcursor
       wayland
       libglvnd
       vulkan-loader
