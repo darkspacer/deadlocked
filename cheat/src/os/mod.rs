@@ -1,5 +1,7 @@
+pub mod hyprland;
 pub mod mouse;
 pub mod process;
+pub mod windmouse;
 
 pub fn is_omarchy() -> bool {
     let contents = std::fs::read_to_string("/etc/os-release")
