@@ -8,7 +8,7 @@
 use std::time::{Duration, Instant};
 
 use glam::{Vec2, vec2};
-use rand::Rng;
+use rand::{Rng, RngExt};
 use rand_distr::{Distribution, Normal};
 
 /// Distance from the target where the curve starts to flatten out (in input units).

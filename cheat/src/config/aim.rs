@@ -43,6 +43,18 @@ pub struct AimbotConfig {
     pub fov: f32,
     pub smooth: f32,
     pub inertia: f32,
+    /// Move the crosshair along a human-like windmouse path instead of straight jumps.
+    pub windmouse: bool,
+    /// Distance from the target where the wind force starts flattening the curve.
+    pub windmouse_wind: f32,
+    /// Maximum strength of the random gust deviations along the path.
+    pub windmouse_gustiness: f32,
+    /// Below this distance (in input units) the pointer walks straight onto the target.
+    pub windmouse_min_radius: f32,
+    /// Above this distance (in input units) big linear steps are taken first.
+    pub windmouse_max_radius: f32,
+    /// Milliseconds between individual mouse reports while tracing the path.
+    pub windmouse_step_delay_ms: u64,
     /// Seconds of target motion to lead when aiming.
     pub prediction_time: f32,
     pub bones: Vec<Bones>,
@@ -65,6 +77,12 @@ impl Default for AimbotConfig {
             fov: 2.5,
             smooth: 5.0,
             inertia: 1.0,
+            windmouse: false,
+            windmouse_wind: 4.0,
+            windmouse_gustiness: 6.0,
+            windmouse_min_radius: 15.0,
+            windmouse_max_radius: 80.0,
+            windmouse_step_delay_ms: 3,
             prediction_time: 0.05,
             bones: vec![
                 Bones::Head,

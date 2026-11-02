@@ -11,14 +11,16 @@ use std::process::Command;
 /// Title of the overlay window, kept in sync with `WindowContext`.
 pub const OVERLAY_TITLE: &str = "deadlocked_overlay";
 
-const LAYER_RULES: [&str; 3] = [
-    // draw above every other window, including fullscreen games
-    &format!("layer:^{OVERLAY_TITLE}$,pin"),
-    // do not steal keyboard focus from the game
-    &format!("layer:^{OVERLAY_TITLE}$,nofocus"),
-    // let clicks fall through onto the game
-    &format!("layer:^{OVERLAY_TITLE}$,passmouseevents"),
-];
+fn layer_rules() -> Vec<String> {
+    vec![
+        // draw above every other window, including fullscreen games
+        format!("layer:^{OVERLAY_TITLE}$,pin"),
+        // do not steal keyboard focus from the game
+        format!("layer:^{OVERLAY_TITLE}$,nofocus"),
+        // let clicks fall through onto the game
+        format!("layer:^{OVERLAY_TITLE}$,passmouseevents"),
+    ]
+}
 
 fn hyprctl(args: &[&str]) -> Result<(), String> {
     let output = Command::new("hyprctl")
@@ -48,8 +50,8 @@ pub fn is_hyprland() -> bool {
 
 /// Applies the overlay window rules. Missing rules are added, existing ones updated.
 pub fn apply_overlay_rules() -> Result<(), String> {
-    for rule in LAYER_RULES {
-        hyprctl(&["layer-opts", "-r", rule])?;
+    for rule in layer_rules() {
+        hyprctl(&["layer-opts", "-r", &rule])?;
     }
     utils::info!("applied hyprland overlay window rules");
     Ok(())

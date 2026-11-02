@@ -475,7 +475,7 @@ impl CS2 {
         }
     }
 
-    fn check_hotkey(input: &Input, mode: KeyMode, key: KeyCode, active: &mut bool) -> bool {
+    pub fn check_hotkey(input: &Input, mode: KeyMode, key: KeyCode, active: &mut bool) -> bool {
         match mode {
             KeyMode::Hold => input.is_key_pressed(key),
             KeyMode::Toggle => {

@@ -125,6 +125,74 @@ impl AppState {
                 self.send_config_game();
             }
 
+            if checkbox_hover(
+                ui,
+                "WindMouse",
+                "Move the crosshair along a human-like curved path instead of straight jumps",
+                &mut self.weapon_config().aimbot.windmouse,
+            ) {
+                self.send_config_game();
+            }
+
+            if self.weapon_config().aimbot.windmouse {
+                ui.indent("windmouse_settings", |ui| {
+                    if drag(
+                        ui,
+                        "Wind",
+                        DragValue::new(&mut self.weapon_config().aimbot.windmouse_wind)
+                            .range(0.0..=20.0)
+                            .speed(0.05)
+                            .max_decimals(1),
+                    ) {
+                        self.send_config_game();
+                    }
+
+                    if drag(
+                        ui,
+                        "Gustiness",
+                        DragValue::new(&mut self.weapon_config().aimbot.windmouse_gustiness)
+                            .range(0.0..=30.0)
+                            .speed(0.05)
+                            .max_decimals(1),
+                    ) {
+                        self.send_config_game();
+                    }
+
+                    if drag(
+                        ui,
+                        "Min Radius",
+                        DragValue::new(&mut self.weapon_config().aimbot.windmouse_min_radius)
+                            .range(1.0..=100.0)
+                            .speed(0.1)
+                            .max_decimals(0),
+                    ) {
+                        self.send_config_game();
+                    }
+
+                    if drag(
+                        ui,
+                        "Max Radius",
+                        DragValue::new(&mut self.weapon_config().aimbot.windmouse_max_radius)
+                            .range(10.0..=500.0)
+                            .speed(0.1)
+                            .max_decimals(0),
+                    ) {
+                        self.send_config_game();
+                    }
+
+                    if drag(
+                        ui,
+                        "Step Delay",
+                        DragValue::new(&mut self.weapon_config().aimbot.windmouse_step_delay_ms)
+                            .range(0..=20)
+                            .suffix(" ms")
+                            .speed(0.2),
+                    ) {
+                        self.send_config_game();
+                    }
+                });
+            }
+
             if drag(
                 ui,
                 "Prediction",
