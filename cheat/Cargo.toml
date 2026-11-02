@@ -34,7 +34,14 @@ glutin-winit = { version = "0.5", default-features = false, features = [
 nix = { version = "0.31", features = ["ioctl"] }
 rand = "0.10"
 rand_distr = "0.6"
-rodio = "0.23"
+# rodio's default features pull cpal -> alsa-sys (breaks Nix builds without
+# libalsa headers on pkg-config path) and the recording stack (rtrb). We only
+# need playback + wav/mp3 decoding of built-in hitmarker sounds.
+rodio = { version = "0.23", default-features = false, features = [
+    "playback",
+    "wav",
+    "mp3",
+] }
 semver = "1.0"
 toml = "1.0"
 ureq = { version = "3", features = ["json"] }

@@ -36,6 +36,9 @@ let
 
   # X11/Wayland/GL зависимости, нужные для компиляции и запуска
   buildDeps = with pkgs; [
+    # cpal (via rodio) always links against alsa on Linux — without the
+    # .dev pkg-config files `cargo build` dies in alsa-sys' build script
+    alsa-lib.dev
     xorg.libX11.dev
     xorg.libXcursor.dev
     xorg.libXi.dev
@@ -50,6 +53,7 @@ let
   runtimeLibs = pkgs.lib.makeLibraryPath (
     with pkgs;
     [
+      alsa-lib
       xorg.libX11
       wayland
       libglvnd

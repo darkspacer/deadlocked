@@ -104,6 +104,8 @@
           ];
 
           buildInputs = [
+            # cpal (via rodio) probes alsa via pkg-config on every Linux build
+            pkgs.alsa-lib.dev
             pkgs.xorg.libX11
             pkgs.xorg.libXcursor
             pkgs.xorg.libXi
@@ -136,6 +138,7 @@
           postFixup = ''
             makeWrapper $out/bin/.deadlocked-wrapped $out/bin/deadlocked \
               --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [
+                pkgs.alsa-lib
                 pkgs.xorg.libX11
                 pkgs.wayland
                 pkgs.libglvnd
@@ -164,6 +167,8 @@
             pkgs.pkg-config
             pkgs.patchelf
             pkgs.git
+            # cpal (via rodio) probes alsa via pkg-config on every Linux build
+            pkgs.alsa-lib.dev
             # build-time C dependencies of the x11/wayland/gl crates
             pkgs.xorg.libX11.dev
             pkgs.xorg.libXcursor.dev
