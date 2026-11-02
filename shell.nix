@@ -52,18 +52,18 @@ let
     # it tries plain soname lookups first. So we need BOTH the -dev package
     # (for pkg-config at build time) and the runtime .so directory on
     # LD_LIBRARY_PATH. In nixpkgs the actual libX11-xcb.so.1 lives in the
-    # top-level `libX11_xcb` output (`xorg.libX11_xcb` is deprecated).
-    libX11_xcb.dev
+    # In current nixpkgs libX11-xcb.so.1 lives in the top-level `libx11`
+    # package itself (the old `libX11_xcb` attribute no longer exists).
     libxext.dev
     libxrender.dev
-    xinput.dev
+    libXi.dev
     libxcursor.dev
     xorgproto
     wayland.dev
     libglvnd.dev
     vulkan-headers
     vulkan-loader.dev
-    mesa.drivers
+    mesa
   ];
 
   runtimeLibs = pkgs.lib.makeLibraryPath (
@@ -72,10 +72,9 @@ let
       alsa-lib
       libx11
       libxkbcommon
-      libX11_xcb
       libxext
       libxrender
-      xinput
+      libXi
       libxcursor
       wayland
       libglvnd
