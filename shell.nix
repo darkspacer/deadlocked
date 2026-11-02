@@ -39,13 +39,15 @@ let
     # cpal (via rodio) always links against alsa on Linux — without the
     # .dev pkg-config files `cargo build` dies in alsa-sys' build script
     alsa-lib.dev
-    xorg.libX11.dev
+    # NOTE: the `xorg` package set is deprecated in recent nixpkgs; use the
+    # top-level renames (libx11, libxkbcommon, ...) to avoid eval warnings.
+    libx11.dev
     # winit/x11-dl dlopen() these at runtime — without them the binary
     # panics on startup ("libxkbcommon-x11.so could not be loaded")
-    xorg.libxkbcommon.dev
-    xorg.libXext.dev
-    xorg.libXrender.dev
-    xorg.xorgproto
+    libxkbcommon.dev
+    libxext.dev
+    libxrender.dev
+    xorgproto
     wayland.dev
     libglvnd.dev
     vulkan-headers
@@ -57,10 +59,10 @@ let
     with pkgs;
     [
       alsa-lib
-      xorg.libX11
-      xorg.libxkbcommon
-      xorg.libXext
-      xorg.libXrender
+      libx11
+      libxkbcommon
+      libxext
+      libxrender
       wayland
       libglvnd
       vulkan-loader

@@ -106,12 +106,12 @@
           buildInputs = [
             # cpal (via rodio) probes alsa via pkg-config on every Linux build
             pkgs.alsa-lib.dev
-            pkgs.xorg.libX11
-            pkgs.xorg.libXcursor
-            pkgs.xorg.libXi
-            pkgs.xorg.libXrandr
+            pkgs.libx11
+            pkgs.libxcursor
+            pkgs.libxi
+            pkgs.libxrandr
             # xkbcommon-dl / x11-dl dlopen libxkbcommon(-x11) at runtime
-            pkgs.xorg.libxkbcommon.dev
+            pkgs.libxkbcommon.dev
             pkgs.wayland
             pkgs.libglvnd
             pkgs.vulkan-loader
@@ -141,8 +141,8 @@
             makeWrapper $out/bin/.deadlocked-wrapped $out/bin/deadlocked \
               --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [
                 pkgs.alsa-lib
-                pkgs.xorg.libX11
-                pkgs.xorg.libxkbcommon
+                pkgs.libx11
+                pkgs.libxkbcommon
                 pkgs.wayland
                 pkgs.libglvnd
                 pkgs.vulkan-loader
@@ -173,12 +173,12 @@
             # cpal (via rodio) probes alsa via pkg-config on every Linux build
             pkgs.alsa-lib.dev
             # build-time C dependencies of the x11/wayland/gl crates
-            pkgs.xorg.libX11.dev
-            pkgs.xorg.libXcursor.dev
-            pkgs.xorg.libXi.dev
-            pkgs.xorg.libXrandr.dev
+            pkgs.libx11.dev
+            pkgs.libxcursor.dev
+            pkgs.libxi.dev
+            pkgs.libxrandr.dev
             # winit dlopen()s libxkbcommon-x11.so at runtime via xkbcommon-dl
-            pkgs.xorg.libxkbcommon.dev
+            pkgs.libxkbcommon.dev
             pkgs.wayland.dev
             pkgs.libglvnd.dev
             pkgs.vulkan-headers
@@ -192,8 +192,8 @@
           shellHook = ''
             export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [
               pkgs.alsa-lib
-              pkgs.xorg.libX11
-              pkgs.xorg.libxkbcommon
+              pkgs.libx11
+              pkgs.libxkbcommon
               pkgs.wayland
               pkgs.libglvnd
               pkgs.vulkan-loader
